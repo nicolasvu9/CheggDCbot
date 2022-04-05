@@ -3,6 +3,7 @@ import os
 import chegg_grab
 from discord.ext import commands
 from pathlib import Path
+import config
 parentdir = Path(__file__).parent.absolute()
 
 client = commands.Bot(command_prefix='-')
@@ -38,5 +39,5 @@ async def getlink(ctx, link):
 
 
 
-client.run('OTU0OTQ0Njk1MjMzMDI4MDk2.YjafjQ.4c-e8RTenNzk5i0qaOWNjbMIxkg')
+client.run(config.config_token)
 
