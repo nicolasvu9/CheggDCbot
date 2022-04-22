@@ -28,16 +28,19 @@ async def getlink(ctx, link):
     name = chegg_grab.get_answer(link)
 
     if name !=1:
-        print('--------------------------------------------------------------------------\nSending PDF: ' + name)    
-        await ctx.send(file=discord.File(os.path.join(parentdir.parent,'data', name)))
+        try:
+            print('--------------------------------------------------------------------------\nSending PDF: ' + name)    
+            await ctx.send(file=discord.File(os.path.join(parentdir.parent,'data', name)))
 
-        print('--------------------------------------------------------------------------\nPDF SENT: ' + name)
-        os.remove(os.path.join(parentdir.parent,'data', name))
-        print('--------------------------------------------------------------------------\n Done')
+            print('--------------------------------------------------------------------------\nPDF SENT: ' + name)
+            os.remove(os.path.join(parentdir.parent,'data', name))
+            print('--------------------------------------------------------------------------\n Done')
+        except Exception:
+            await ctx.send("error try again")
     else:
         await ctx.send("Error")
 
 
 
-client.run(config.config_token)
+client.run(config.dc_token)
 
