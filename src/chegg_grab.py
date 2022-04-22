@@ -44,7 +44,7 @@ class Slitherer:
         options.add_experimental_option('useAutomationExtension', False)
         options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36")
         options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_argument('window-position=3000,0') 
+        options.add_argument('window-position=3000,-2000') 
         
         self.driver = webdriver.Chrome(executable_path=os.path.join(parentdir, 'chromedriver.exe'), options=options)
 
@@ -54,23 +54,14 @@ class Slitherer:
             print("Loading cookies from " + selenium_cookie_file)
             cookies = pickle.load(open(selenium_cookie_file, "rb"))
 
-            # Enables network tracking so we may use Network.setCookie method
             self.driver.execute_cdp_cmd('Network.enable', {})
 
-            # Iterate through pickle dict and add all the cookies
             for cookie in cookies:
-                # Fix issue Chrome exports 'expiry' key but expects 'expire' on import
                 if 'expiry' in cookie:
                     cookie['expires'] = cookie['expiry']
                     del cookie['expiry']
-
-                # Replace domain 'apple.com' with 'microsoft.com' cookies
                 cookie['domain'] = cookie['domain'].replace('apple.com', 'microsoft.com')
-
-                # Set the actual cookie
                 self.driver.execute_cdp_cmd('Network.setCookie', cookie)
-
-            # Disable network tracking
             self.driver.execute_cdp_cmd('Network.disable', {})
             return 1
 
@@ -126,6 +117,7 @@ def get_answer(link):
 
     except:
         return 1
+
 
 
 
