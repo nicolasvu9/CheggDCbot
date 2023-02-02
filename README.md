@@ -1,3 +1,7 @@
+Bot Deprecated January 2023
+-- Screen capture method patched by Chegg
+-- Login with saved cookies no longer works 
+
 Need to add pipenv repo
 
 pipenv install
